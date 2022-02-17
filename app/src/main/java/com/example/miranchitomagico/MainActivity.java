@@ -5,17 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private Button listaPueblosMagicos, planeaTuViaje, mapa, comentarios, ajustes, registro, login;
+    private ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "OnCreate", Toast.LENGTH_SHORT).show();
         loadComponents();
         buttonEvents();
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         this.comentarios = (Button) findViewById(R.id.comentarios);
         this.mapa = (Button) findViewById(R.id.mapa);
         this.ajustes = (Button) findViewById(R.id.ajustes);
+        img = (ImageView) findViewById(R.id.ranchito);
+        img.setImageResource(R.drawable.mi_ranchito_magico);
     }
 
     //Metodo para settear los eventos de los botones
@@ -53,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
         mapa.setOnClickListener(x -> startActivity(new Intent(this, Comentarios.class)));
 
         //Muestra los ajustes de la aplicación
-        ajustes.setOnClickListener(x -> startActivity(new Intent(this, MainActivity.class)));
+        ajustes.setOnClickListener(x -> startActivity(new Intent(this, Ajustes.class)));
+    }
+
+    public static void backToMainMenu(AppCompatActivity act, Button button){
+        button.setOnClickListener(x -> act.startActivity(new Intent(act,MainActivity.class)));
     }
 
 
