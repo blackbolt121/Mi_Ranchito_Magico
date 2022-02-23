@@ -4,17 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_columnSpan="3"
+    android:foregroundTint="#FFFFFF"
     tools:context=".Login">
 
-    <Button
-        android:id="@+id/atras"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+    <TableLayout
+        android:layout_width="410dp"
+        android:layout_height="734dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/atras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginTop="40sp"
+                android:backgroundTint="#304FFE"
+                android:shadowColor="#6200EA"
+                android:text="@string/atras"
+                android:textColorHighlight="#EDF6F9"
+                android:textColorLink="#FFFFFF" />
+
+            <ImageView
+                android:id="@+id/login_image"
+                android:layout_width="188dp"
+                android:layout_height="190dp"
+                android:layout_marginStart="5sp"
+                android:layout_marginTop="100sp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20sp">
+
+            <TextView
+                android:id="@+id/login_user_label"
+                android:layout_width="113dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:backgroundTint="#304FFE"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="@string/user"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/login_user_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20sp"
+                android:layout_weight="0.7"
+                android:ems="10"
+                android:inputType="textPersonName" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_marginTop="30sp">
+
+            <TextView
+                android:id="@+id/login_pass_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="@string/password"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/login_pass_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20sp"
+                android:layout_weight="0.7"
+                android:ems="10"
+                android:inputType="textPassword" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="30sp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="70sp"
+                android:layout_span="3"
+                android:backgroundTint="#304FFE"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColorLink="#FFFFFF"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/login_go_to_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:layout_weight="1"
+                android:backgroundTint="#FFFFFF"
+                android:drawableTint="#FFFFFF"
+                android:shadowColor="#FFFFFF"
+                android:text="@string/no_registrado"
+                android:textColor="#000000" />
+        </TableRow>
+    </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

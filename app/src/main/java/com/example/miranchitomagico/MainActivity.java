@@ -39,29 +39,32 @@ public class MainActivity extends AppCompatActivity {
     private void buttonEvents(){
 
         //Se manda al activity de registro
-        registro.setOnClickListener(x -> startActivity(new Intent(this,Registro.class)));
+        registro.setOnClickListener(x ->{ startActivity(new Intent(this,Registro.class)); finish(); });
 
         //Se manda al activity de inicio de sesión
-        login.setOnClickListener(x -> startActivity(new Intent(this, Login.class)));
+        login.setOnClickListener(x -> {startActivity(new Intent(this, Login.class)); finish();});
 
         //Se inicia el activity desplegando la lista de pueblos mágicos
-        listaPueblosMagicos.setOnClickListener(x -> startActivity(new Intent(this,ListaDePueblosMagicos.class)));
+        listaPueblosMagicos.setOnClickListener(x -> {startActivity(new Intent(this,ListaDePueblosMagicos.class)); finish();});
 
         //Se inicia activity para planear tu viaje
-        planeaTuViaje.setOnClickListener(x -> startActivity(new Intent(this, PlaneaTuViaje.class)));
+        planeaTuViaje.setOnClickListener(x -> {startActivity(new Intent(this, PlaneaTuViaje.class)); finish();});
 
         //Te lleva al menu de comentarios
-        comentarios.setOnClickListener(x -> startActivity(new Intent(this, Comentarios.class)));
+        comentarios.setOnClickListener(x -> {startActivity(new Intent(this, Comentarios.class)); finish();});
 
         //Te muestra el mapa ??
-        mapa.setOnClickListener(x -> startActivity(new Intent(this, Comentarios.class)));
+        mapa.setOnClickListener(x -> {startActivity(new Intent(this, Comentarios.class)); finish();});
 
         //Muestra los ajustes de la aplicación
-        ajustes.setOnClickListener(x -> startActivity(new Intent(this, Ajustes.class)));
+        ajustes.setOnClickListener(x -> {startActivity(new Intent(this, Ajustes.class)); finish();});
     }
 
     public static void backToMainMenu(AppCompatActivity act, Button button){
-        button.setOnClickListener(x -> act.startActivity(new Intent(act,MainActivity.class)));
+        button.setOnClickListener(x -> {
+            act.startActivity(new Intent(act,MainActivity.class));
+            act.finish();
+        });
     }
 
 

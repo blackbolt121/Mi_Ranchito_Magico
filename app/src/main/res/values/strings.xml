@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Mi Ranchito Magico</string>
+    <string name="lista">Lista de Pueblos Mágicos</string>
+    <string name="planea">Planea tu viaje</string>
+    <string name="mapa">Mapa</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="login">Iniciar Sesion</string>
+    <string name="registrar">Registrar</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="atras">Atras</string>
+    <string name="no_registrado">¿No te has registrado? Registrate aquí</string>
 </resources>

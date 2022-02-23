@@ -13,6 +13,6 @@ public class PlaneaTuViaje extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planea_tu_viaje);
         atras = (Button) findViewById(R.id.atras);
-        MainActivity.backToMainMenu(this,atras);
+        MainActivity.backToMainMenu(this, atras);
     }
 }
