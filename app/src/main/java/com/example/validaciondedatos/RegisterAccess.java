@@ -1,7 +1,15 @@
 package com.example.validaciondedatos;
 
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.miranchitomagico.MainActivity;
+
 public class RegisterAccess {
-    public String nombre, correo, direccion, estado, municipio, codigo_postal, telefono, contraseña;
+    private String nombre, correo, direccion, estado, municipio, codigo_postal, telefono, contraseña;
+    private AppCompatActivity act;
+
     private RegisterAccess(){
 
     }
@@ -38,49 +46,70 @@ public class RegisterAccess {
         this.contraseña = contraseña;
     }
 
+    private void setContext(AppCompatActivity context){
+        this.act = context;
+    }
+
     private void registrar(){
         //En este método se registra los datos del usuario en la base de datos
+        Toast.makeText(act,String.format("Nombre:%s\nCorreo:%s\nDireccion:%s\nEstado:%s\nMunicipio:%s\nCodigo Postal:%s\nTeléfono:%s\nContraseña:%s",nombre,correo,direccion,estado,municipio,codigo_postal,telefono,contraseña), Toast.LENGTH_SHORT).show();
     }
 
     public static class RegisterBuilder{
+
         RegisterAccess build;
+
         public RegisterBuilder(){
             build = new RegisterAccess();
         }
+
         public RegisterBuilder setNombre(String nombre){
             build.setNombre(nombre);
             return this;
         }
+
+        public RegisterBuilder passContext(AppCompatActivity act){
+            build.setContext(act);
+            return this;
+        }
+
         public RegisterBuilder setCorreo(String correo){
             build.setCorreo(correo);
             return this;
         }
+
         public RegisterBuilder setDireccion(String direccion){
             build.setDireccion(direccion);
             return this;
         }
+
         public RegisterBuilder setEstado(String estado){
             build.setEstado(estado);
             return this;
         }
+
         public RegisterBuilder setMunicipio(String municipio){
             build.setMunicipio(municipio);
             return this;
         }
+
         public RegisterBuilder setCodigoPostal(String codigoPostal){
             build.setCodigo_postal(codigoPostal);
             return this;
         }
+
         public RegisterBuilder setTelefono(String telefono){
             build.setTelefono(telefono);
             return this;
         }
+
         public RegisterBuilder setContraseña(String contraseña){
             build.setContraseña(contraseña);
             return this;
         }
-        public void registrar(){
 
+        public void registrar(){
+            build.registrar();
         }
     }
 }
