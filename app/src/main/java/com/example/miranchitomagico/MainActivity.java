@@ -45,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(x -> {startActivity(new Intent(this, Login.class)); finish();});
 
         //Se inicia el activity desplegando la lista de pueblos mágicos
-        listaPueblosMagicos.setOnClickListener(x -> {startActivity(new Intent(this,ListaDePueblosMagicos.class)); finish();});
+        listaPueblosMagicos.setOnClickListener(x -> {
+            startActivity(new Intent(this,ListaDePueblosMagicos.class));
+            this.finish();
+        });
 
         //Se inicia activity para planear tu viaje
         planeaTuViaje.setOnClickListener(x -> {startActivity(new Intent(this, PlaneaTuViaje.class)); finish();});

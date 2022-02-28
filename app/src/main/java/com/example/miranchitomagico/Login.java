@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.validaciondedatos.MD5;
+
 public class Login extends AppCompatActivity implements loadComponents{
 
     private Button atras, login;
@@ -44,7 +46,11 @@ public class Login extends AppCompatActivity implements loadComponents{
                     throw new Exception("Porfavor digite su password");
                 }
                 //Si no se lanzo una excepción, entonces se procede a iniciar sesion
-                pr(readFieldSets.getReader(user)+" " + readFieldSets.getReader(password));
+                pr(readFieldSets.getReader(user)+" " + MD5.getMd5(readFieldSets.getReader(password)));
+                //Hashea la contraseña
+
+                //Valida con el servidor
+                //Recibe una sesión
             }catch(Exception e){
                 pr(e.getMessage());
             }

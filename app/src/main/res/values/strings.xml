@@ -8,7 +8,17 @@
     <string name="login">Iniciar Sesion</string>
     <string name="registrar">Registrar</string>
     <string name="user">Usuario</string>
+    <string name="nombre">Nombre</string>
+    <string name="direccion">Dirección</string>
+    <string name="direccion2">Dirección 2</string>
+    <string name="email">Correo</string>
+    <string name="password_confirm">Confirma contraseña</string>
     <string name="password">Contraseña</string>
     <string name="atras">Atras</string>
+    <string name="estado">Estado</string>
+    <string name="municipio">Municipio</string>
+    <string name="telefono">Telefono</string>
+    <string name="codigo_postal">Código Postal</string>
     <string name="no_registrado">¿No te has registrado? Registrate aquí</string>
+    <string name="registrate_aqui">Registrate Aquí</string>
 </resources>
