@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.validaciondedatos.MD5;
+import com.example.service.MD5;
 
-public class Login extends AppCompatActivity implements loadComponents{
+public class Login extends functions implements loadComponents{
 
     private Button atras, login;
     private EditText user, password;
@@ -59,14 +59,14 @@ public class Login extends AppCompatActivity implements loadComponents{
 
     @Override
     public void loadImages() {
-        login_icon = (ImageView) findViewById(R.id.login_image);
+        login_icon = importImgVw(R.id.login_image);
         login_icon.setImageResource(R.drawable.login);
     }
 
     @Override
     public void loadFields() {
-        user = (EditText) findViewById(R.id.login_user_field);
-        password = (EditText) findViewById(R.id.login_pass_field);
+        user = importEditText(R.id.login_user_field);
+        password = importEditText(R.id.login_pass_field);
     }
     public void pr(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

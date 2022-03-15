@@ -9,18 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.validaciondedatos.MD5;
-import com.example.validaciondedatos.RegisterAccess.RegisterBuilder;
-import com.example.validaciondedatos.obtenerTexto;
-import com.example.validaciondedatos.RegisterAccess;
+import com.example.service.MD5;
+import com.example.service.RegisterAccess.RegisterBuilder;
+
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Registro extends AppCompatActivity implements loadComponents{
+public class Registro extends functions implements loadComponents{
     private Button atras, registrar;
     private EditText nombre, correo, direccion, direccion2, cp, telefono, pass, cpass;
     private Spinner estado, municipio;
@@ -42,44 +39,76 @@ public class Registro extends AppCompatActivity implements loadComponents{
 
     @Override
     public void loadButtons() {
-        atras = (Button) findViewById(R.id.atras);
+        atras = importButton(R.id.atras);
         MainActivity.backToMainMenu(this,atras);
-        registrar = (Button) findViewById(R.id.register_button);
-
+        registrar = importButton(R.id.register_button);
         registrar.setOnClickListener(x -> {
-            Toast.makeText(this, "Registrando, espere un momento",Toast.LENGTH_SHORT).show();
-
             try {
 
-                if(obtenerTexto.editStr(nombre).equals("")) //Valida el nombre del usuario
-                    throw new Exception("Por favor, ingresa tu nombre");
-                if(!Patterns.EMAIL_ADDRESS.matcher(correo.getText()).matches()) //Valida el correo electronico
-                    throw new Exception("Por favor ingresa un correo electronico válido");
-                if((TextUtils.isEmpty(direccion.getText()) && TextUtils.isEmpty(direccion2.getText()))) //Valida la dirección
-                    throw new Exception("Por favor ingresa tu dirección");
-                if(!Patterns.PHONE.matcher(telefono.getText()).matches()) //Valida que un telefono sea valido
-                    throw new Exception("Por favor ingresa un telefono válido");
-                if(!obtenerTexto.editStr(cp).matches("\\d{5}")) //Valida que el codigo postal sea valido
-                    throw new Exception("Por favor digite un código postal válido");
-                if((pass.getText().toString().length() == 0) || (cpass.getText().toString().length() == 0))
-                    throw new Exception("La contraseña esta vacia");
-                if(!obtenerTexto.editStr(cpass).equals(obtenerTexto.editStr(pass))) //Valida que la contraseña sea la misma
-                    throw new Exception("Las contraseñas no coinciden");
                 (new RegisterBuilder())
                         .passContext(this)
-                        .setNombre(obtenerTexto.editStr(nombre))
-                        .setDireccion(obtenerTexto.editStr(direccion) + " " + obtenerTexto.editStr(direccion2))
-                        .setCorreo(obtenerTexto.editStr(correo))
-                        .setEstado(estado.getSelectedItem().toString())
-                        .setMunicipio(municipio.getSelectedItem().toString())
-                        .setTelefono(obtenerTexto.editStr(telefono))
-                        .setCodigoPostal(obtenerTexto.editStr(cp))
-                        .setContraseña(MD5.getMd5(obtenerTexto.editStr(pass)))
+                        .setNombre(getNombre())
+                        .setDireccion(getDireccion())
+                        .setCorreo(getCorreoElectronico())
+                        .setEstado(getEstado())
+                        .setMunicipio(getMunicipio())
+                        .setTelefono(getTelefono())
+                        .setCodigoPostal(getCodigoPostal())
+                        .setContraseña(getPassword())
                         .registrar();
             }catch(Exception e){
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                printf(e.getMessage());
             }
         });
+    }
+
+
+    /*
+        METODOS DE VALIDACIÓN EN EL FORMULARIO DE REGISTRO
+     */
+    private String getNombre() throws Exception{
+        if(readEditText(nombre).equals("")) //Valida el nombre del usuario
+            throw new Exception("Por favor, ingresa tu nombre");
+        return readEditText(nombre);
+    }
+    private String getCorreoElectronico() throws Exception{
+        if(!Patterns.EMAIL_ADDRESS.matcher(readEditText(correo)).matches()) //Valida el correo electronico
+            throw new Exception("Por favor ingresa un correo electronico válido");
+        return readEditText(correo);
+    }
+    private String getTelefono() throws Exception{
+        if(!Patterns.PHONE.matcher(telefono.getText()).matches()) //Valida que un telefono sea valido
+            throw new Exception("Por favor ingresa un telefono válido");
+        return readEditText(telefono);
+    }
+    private String getDireccion() throws Exception{
+        if((TextUtils.isEmpty(direccion.getText()) && TextUtils.isEmpty(direccion2.getText()))) //Valida la dirección
+            throw new Exception("Por favor ingresa tu dirección");
+        return (readEditText(direccion) + " " +readEditText(direccion2)).trim();
+    }
+    private String getCodigoPostal() throws Exception{
+        if(!readEditText(cp).matches("\\d{5}")) //Valida que el codigo postal sea valido
+            throw new Exception("Por favor digite un código postal válido");
+        return readEditText(cp);
+    }
+    private String getPassword() throws Exception{
+        if((pass.getText().toString().length() == 0))
+            throw new Exception("Escriba una contraseña");
+        if((cpass.getText().toString().length() == 0))
+            throw new Exception("Por favor, confirme su contraseña");
+        if(!readEditText(cpass).equals(readEditText(pass))) //Valida que la contraseña sea la misma
+            throw new Exception("Las contraseñas no coinciden");
+        return MD5.getMd5(readEditText(pass));
+    }
+    private String getEstado() throws Exception{
+        if(readSelected(estado).toString().equals(""))
+            throw new Exception("No ha seleccionado un estado");
+        return readSelected(estado).toString();
+    }
+    private String getMunicipio() throws Exception{
+        if(readSelected(municipio).toString().equals(""))
+            throw new Exception("No ha seleccionado un municipio");
+        return readSelected(municipio).toString();
     }
 
     @Override
@@ -88,16 +117,16 @@ public class Registro extends AppCompatActivity implements loadComponents{
 
     @Override
     public void loadFields() {
-        nombre = (EditText) findViewById(R.id.register_name);
-        correo = (EditText) findViewById(R.id.register_email);
-        direccion = (EditText) findViewById(R.id.register_address1);
-        direccion2 = (EditText) findViewById(R.id.register_addres2);
-        cp = (EditText) findViewById(R.id.register_pc);
-        telefono = (EditText) findViewById(R.id.register_phone);
-        pass = (EditText) findViewById(R.id.register_password);
-        cpass = (EditText) findViewById(R.id.register_cpassword);
-        estado = (Spinner) findViewById(R.id.register_state);
-        municipio = (Spinner) findViewById(R.id.register_town);
+        nombre = importEditText(R.id.register_name);
+        correo = importEditText(R.id.register_email);
+        direccion = importEditText(R.id.register_address1);
+        direccion2 = importEditText(R.id.register_addres2);
+        cp = importEditText(R.id.register_pc);
+        telefono = importEditText(R.id.register_phone);
+        pass = importEditText(R.id.register_password);
+        cpass = importEditText(R.id.register_cpassword);
+        estado = importSpinner(R.id.register_state);
+        municipio = importSpinner(R.id.register_town);
         estado.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList("Sin seleccionar","Queretaro","Michoacan","Jalisco","Ciudad de México")));
         municipio.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_item, Arrays.asList("Sin seleccionar","Queretaro","Michoacan","Jalisco","Ciudad de México")));
 

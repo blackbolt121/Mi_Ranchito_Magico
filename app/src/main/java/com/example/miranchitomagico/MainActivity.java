@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends functions {
 
     private Button listaPueblosMagicos, planeaTuViaje, mapa, comentarios, ajustes, registro, login;
     private ImageView img;
@@ -24,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
     }
     //Metodo para cargar los componentes del layout
     private void loadComponents(){
-        this.registro = (Button) findViewById(R.id.registrar);
-        this.login = (Button) findViewById(R.id.login);
-        this.listaPueblosMagicos = (Button) findViewById(R.id.lista);
-        this.planeaTuViaje = (Button) findViewById(R.id.planea);
-        this.comentarios = (Button) findViewById(R.id.comentarios);
-        this.mapa = (Button) findViewById(R.id.mapa);
-        this.ajustes = (Button) findViewById(R.id.ajustes);
-        img = (ImageView) findViewById(R.id.ranchito);
+        this.registro = importButton(R.id.registrar);
+        this.login = importButton(R.id.login);
+        this.listaPueblosMagicos = importButton(R.id.lista);
+        this.planeaTuViaje = importButton(R.id.planea);
+        this.comentarios = importButton(R.id.comentarios);
+        this.mapa = importButton(R.id.mapa);
+        this.ajustes = importButton(R.id.ajustes);
+        img = importImgVw(R.id.ranchito);
         img.setImageResource(R.drawable.mi_ranchito_magico);
     }
 

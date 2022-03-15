@@ -1,10 +1,8 @@
-package com.example.validaciondedatos;
+package com.example.service;
 
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.miranchitomagico.MainActivity;
 
 public class RegisterAccess {
     private String nombre, correo, direccion, estado, municipio, codigo_postal, telefono, contraseña;
