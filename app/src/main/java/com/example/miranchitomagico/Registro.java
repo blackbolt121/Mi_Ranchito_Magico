@@ -44,7 +44,6 @@ public class Registro extends functions implements loadComponents{
         registrar = importButton(R.id.register_button);
         registrar.setOnClickListener(x -> {
             try {
-
                 (new RegisterBuilder())
                         .passContext(this)
                         .setNombre(getNombre())

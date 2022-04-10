@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.service.LoginAccess;
 import com.example.service.MD5;
 
 public class Login extends functions implements loadComponents{
@@ -46,11 +47,18 @@ public class Login extends functions implements loadComponents{
                     throw new Exception("Porfavor digite su password");
                 }
                 //Si no se lanzo una excepción, entonces se procede a iniciar sesion
-                pr(readFieldSets.getReader(user)+" " + MD5.getMd5(readFieldSets.getReader(password)));
-                //Hashea la contraseña
-
                 //Valida con el servidor
                 //Recibe una sesión
+                String token = LoginAccess
+                        .LoginBuilder
+                        .makeLogin()
+                        .setContext(this)
+                        .setUser(readFieldSets.getReader(user))
+                        .setPassword(readFieldSets.getReader(password))
+                        .login();
+                if(!token.equals("")){
+                    this.printf("Se ha iniciado sesión correctamente");
+                }
             }catch(Exception e){
                 pr(e.getMessage());
             }

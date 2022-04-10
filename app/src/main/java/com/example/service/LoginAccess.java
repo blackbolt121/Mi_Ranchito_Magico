@@ -3,7 +3,13 @@ package com.example.service;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.net.URL;
+import java.net.URLStreamHandler;
+import java.util.HashMap;
+import java.util.Optional;
+
 public class LoginAccess {
+
     private String password, user;
     private LoginAccess(){}
     private String login(Context context) throws Exception{
@@ -11,8 +17,7 @@ public class LoginAccess {
             throw new Exception("No user captured");
         if(password.length()==0)
             throw new Exception("No password captured");
-        Requester requester = new Requester(context);
-        return ""; //Aquí hacemos la petición a nuestro servidor para validar las credenciales
+        return (new Requester(context)).requestLogin(user,password);
     }
 
     private void setPassword(String password) {

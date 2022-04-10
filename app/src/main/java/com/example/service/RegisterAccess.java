@@ -1,15 +1,19 @@
 package com.example.service;
 
+import android.util.Patterns;
 import android.widget.Toast;
-
+import android.util.Patterns.*;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.HashMap;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class RegisterAccess {
     private String nombre, correo, direccion, estado, municipio, codigo_postal, telefono, contraseña;
     private AppCompatActivity act;
 
     private RegisterAccess(){
-
     }
 
     private void setNombre(String nombre) {
@@ -48,11 +52,54 @@ public class RegisterAccess {
         this.act = context;
     }
 
+    /**
+     * Metodo para registrar al usuario a través de la API
+     * Require que todos los valores de la clase esten asignados
+     * @returns void
+     */
     private void registrar(){
         //En este método se registra los datos del usuario en la base de datos
-        Toast.makeText(act,String.format("Nombre:%s\nCorreo:%s\nDireccion:%s\nEstado:%s\nMunicipio:%s\nCodigo Postal:%s\nTeléfono:%s\nContraseña:%s",nombre,correo,direccion,estado,municipio,codigo_postal,telefono,contraseña), Toast.LENGTH_SHORT).show();
-    }
+        //Toast.makeText(act,String.format("Nombre:%s\nCorreo:%s\nDireccion:%s\nEstado:%s\nMunicipio:%s\nCodigo Postal:%s\nTeléfono:%s\nContraseña:%s",nombre,correo,direccion,estado,municipio,codigo_postal,telefono,contraseña), Toast.LENGTH_SHORT).show();
+        try{
 
+            validateForm validateForm = (a, b) -> {return a.matches(b);};
+            if(!validateForm.validar(nombre,"^([A-Za-z]+\\s?)+$"))
+                throw new Exception("El nombre de su cuenta no es valido");
+            if(!Patterns.EMAIL_ADDRESS.matcher(correo).matches())
+                throw new Exception("El correo electrónico entregado es inválido");
+            if(!Patterns.PHONE.matcher(telefono).matches())
+                throw new Exception("El telefono no es valido");
+            if(validateForm.validar(estado,"Sin seleccionar"))
+                throw new Exception("No ha seleccionado un estado");
+            if(validateForm.validar(municipio,"Sin seleccionar"))
+                throw new Exception("No ha seleccionado un municipio");
+            if(!validateForm.validar(direccion,"^(\\w+\\s?)+$"))
+                throw new Exception("Digite una dirección valida");
+            if(!validateForm.validar(contraseña,"^w+$"))
+                throw new Exception("Usted no ha ingresado una contraseña");
+            if(!validateForm.validar(codigo_postal,"\\d{5}"))
+                throw new Exception("Usted no ha ingresado un codigo postal válido");
+            HashMap body = new HashMap(){
+                {
+                    put("name",nombre);
+                    put("email",correo);
+                    put("phone", telefono);
+                    put("estate", estado);
+                    put("municipio",municipio);
+                    put("direccion",direccion);
+                    put("password",contraseña);
+                    put("postal",codigo_postal);
+                }
+            };
+            String request = (new Requester(act)).requestRegister(body);
+        }catch(Exception e){
+            Toast.makeText(act,e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+    }
+    @FunctionalInterface
+    public interface validateForm{
+        boolean validar(String cadena, String patron);
+    }
     public static class RegisterBuilder{
 
         RegisterAccess build;
